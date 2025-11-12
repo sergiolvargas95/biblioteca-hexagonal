@@ -1,14 +1,11 @@
 package co.edu.udec.domain.model.entities;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor(force = true)
+@Getter
+@Setter
 public class User {
     private final Long id;
     private final String firstName;
@@ -19,4 +16,16 @@ public class User {
     private final String password;
     private final LocalDateTime createdAt;
     private final LocalDateTime updatedAt;
+
+    public User(Long id, String firstName, String middleName, String lastName, String secondSurname, String email, String password, LocalDateTime createdAt, LocalDateTime updatedAt) {
+        this.id = id;
+        this.firstName = firstName;
+        this.middleName = middleName;
+        this.lastName = lastName;
+        this.secondSurname = secondSurname;
+        this.email = email;
+        this.password = password;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+    }
 }
