@@ -8,15 +8,15 @@ import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
+@NoArgsConstructor(force = true)
 public class User {
-    private Long id;
-    private String firstName;
-    private String middleName;
-    private String lastName;
-    private String secondSurname;
-    private String email;
-    private String password;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
+    private final Long id;
+    private final String firstName;
+    private final String middleName;
+    private final String lastName;
+    private final String secondSurname;
+    private final String email;
+    private final String password;
+    private final LocalDateTime createdAt;
+    private final LocalDateTime updatedAt;
 }
