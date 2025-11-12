@@ -1,6 +1,5 @@
 package co.edu.udec.domain.model.aggregates;
 
-import co.edu.udec.domain.model.entities.Copy;
 import co.edu.udec.domain.model.valueObjects.Title;
 import lombok.*;
 
@@ -15,7 +14,7 @@ public class Book {
     private final Title title;
     private final Author author;
     private final LocalDateTime createdAt;
-    private final LocalDateTime updatedAt;
+    private LocalDateTime updatedAt;
     private final List<Copy> copies = new ArrayList<>();
 
     public Book(Long id, Title title, Author author, LocalDateTime createdAt, LocalDateTime updatedAt) {
@@ -27,5 +26,15 @@ public class Book {
         this.author = author;
         this.createdAt = createdAt != null ? createdAt : LocalDateTime.now();
         this.updatedAt = updatedAt;
+    }
+
+    public static Book createNew(Long id, Title title, Author author) {
+        return new Book(id, title, author, LocalDateTime.now(), null);
+    }
+
+    public void addCopy(Copy copy) {
+        if (copy == null) throw new IllegalArgumentException("La copia no puede ser nula");
+        this.copies.add(copy);
+        this.updatedAt = LocalDateTime.now();
     }
 }

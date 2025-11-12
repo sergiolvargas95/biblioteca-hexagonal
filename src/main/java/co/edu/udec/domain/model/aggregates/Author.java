@@ -28,4 +28,8 @@ public class Author {
         this.createdAt = createdAt != null ? createdAt : LocalDateTime.now();;
         this.updatedAt = updatedAt;
     }
+
+    public static Author createNew(Long id, FullName fullName, String nationality) {
+        return new Author(id, fullName, nationality, LocalDateTime.now(), null);
+    }
 }

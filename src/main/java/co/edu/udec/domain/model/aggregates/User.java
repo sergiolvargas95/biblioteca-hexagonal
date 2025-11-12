@@ -30,4 +30,8 @@ public class User {
         this.createdAt = createdAt != null ? createdAt : LocalDateTime.now();
         this.updatedAt = updatedAt;
     }
+
+    public static User createNew(Long id, FullName fullName, Email email, String password) {
+        return new User(id, fullName, email, password, LocalDateTime.now(), null);
+    }
 }
