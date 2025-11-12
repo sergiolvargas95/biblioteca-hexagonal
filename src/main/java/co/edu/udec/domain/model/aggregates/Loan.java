@@ -1,6 +1,5 @@
-package co.edu.udec.domain.model.entities;
+package co.edu.udec.domain.model.aggregates;
 
-import co.edu.udec.domain.model.aggregates.User;
 import co.edu.udec.domain.model.valueObjects.LoanPeriod;
 import lombok.Getter;
 import lombok.Setter;
