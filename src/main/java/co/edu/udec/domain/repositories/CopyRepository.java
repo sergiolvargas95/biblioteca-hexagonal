@@ -7,7 +7,8 @@ import java.util.Optional;
 
 public interface CopyRepository {
     Copy save(Copy copy);
-    Optional<Copy> findById(Long id);
+    Optional<Copy> findByIsbn(Long id);
     List<Copy> findAll();
     void deleteById(Long id);
+    void update(Copy copy);
 }

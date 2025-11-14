@@ -48,4 +48,11 @@ public class Copy {
         this.available = true;
         this.updatedAt = LocalDateTime.now();
     }
+
+    public void markAsLoaned() {
+        if (!this.available) {
+            throw new IllegalStateException("El ejemplar ya está prestado");
+        }
+        this.available = false;
+    }
 }

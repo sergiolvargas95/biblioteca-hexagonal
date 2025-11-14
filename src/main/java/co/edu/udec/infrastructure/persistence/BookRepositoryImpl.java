@@ -120,4 +120,29 @@ public class BookRepositoryImpl implements BookRepository {
             throw new RuntimeException("Error al eliminar libro: " + e.getMessage(), e);
         }
     }
+
+    @Override
+    public Book update(Book updatedBook) {
+        String sql = "UPDATE Books SET title = ?, author_id = ?, updated_at = ? WHERE id = ?";
+
+        try (Connection conn = DatabaseConfig.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, updatedBook.getTitle().value());
+            stmt.setLong(2, updatedBook.getAuthor().getId());
+            stmt.setTimestamp(3, Timestamp.valueOf(updatedBook.getUpdatedAt()));
+            stmt.setLong(4, updatedBook.getId());
+
+            int rows = stmt.executeUpdate();
+
+            if (rows == 0) {
+                throw new RuntimeException("No existe el libro con ID: " + updatedBook.getId());
+            }
+
+            return updatedBook;
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Error al actualizar el libro: " + e.getMessage(), e);
+        }
+    }
 }
