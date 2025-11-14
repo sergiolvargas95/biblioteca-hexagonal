@@ -17,7 +17,7 @@ public class Copy {
     private boolean available;
     private LocalDateTime updatedAt;
 
-    public Copy(Isbn isbn, Long bookId, Long formatId, boolean available,int pages, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public Copy(Isbn isbn, Long bookId, Long formatId, boolean available, int pages, LocalDateTime createdAt, LocalDateTime updatedAt) {
 
         if (isbn == null) throw new IllegalArgumentException("El ISBN no puede ser nulo");
         if (bookId == null) throw new IllegalArgumentException("El libro es obligatorio");
