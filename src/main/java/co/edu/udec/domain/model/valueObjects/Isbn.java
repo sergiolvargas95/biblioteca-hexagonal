@@ -6,4 +6,8 @@ public record Isbn(String value) {
             throw new IllegalArgumentException("Invalid ISBN");
         }
     }
+
+    public String getValue() {
+        return value;
+    }
 }
