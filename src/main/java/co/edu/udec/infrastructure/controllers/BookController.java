@@ -1,7 +1,6 @@
 package co.edu.udec.infrastructure.controllers;
 
 import co.edu.udec.application.services.BookApplicationService;
-import co.edu.udec.application.dto.BookDTO;
 import co.edu.udec.domain.model.aggregates.Book;
 
 import java.util.List;

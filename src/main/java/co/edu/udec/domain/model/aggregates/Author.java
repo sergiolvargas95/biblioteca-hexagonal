@@ -9,8 +9,8 @@ import java.time.LocalDateTime;
 @Setter
 public class Author {
     private final Long id;
-    private final FullName fullName;
-    private final String nationality;
+    private FullName fullName;
+    private String nationality;
     private final LocalDateTime createdAt;
     private final LocalDateTime updatedAt;
 
