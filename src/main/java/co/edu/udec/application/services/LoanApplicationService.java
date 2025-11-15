@@ -31,7 +31,7 @@ public class LoanApplicationService {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("Usuario no encontrado"));
 
-        Copy copy = copyRepository.findById(copyId)
+        Copy copy = copyRepository.findByIsbn(copyId)
                 .orElseThrow(() -> new IllegalArgumentException("Ejemplar no encontrado"));
 
         if (!copy.isAvailable()) {
@@ -64,7 +64,7 @@ public class LoanApplicationService {
         loan.setPeriod(updatedPeriod);
         loanRepository.update(loan);
 
-        Copy copy = copyRepository.findById(Long.valueOf(loan.getIsbn().getValue()))
+        Copy copy = copyRepository.findByIsbn(Long.valueOf(loan.getIsbn().getValue()))
                 .orElseThrow(() -> new IllegalArgumentException("No existe la copia con ese ISBN"));
 
         copy.markAsAvailable();
@@ -88,7 +88,7 @@ public class LoanApplicationService {
                 .orElseThrow(() -> new IllegalArgumentException("Préstamo no encontrado"));
 
         if (loan.getPeriod().isActive()) {
-            Copy copy = copyRepository.findById(Long.valueOf(loan.getIsbn().getValue()))
+            Copy copy = copyRepository.findByIsbn(Long.valueOf(loan.getIsbn().getValue()))
                     .orElseThrow(() -> new IllegalArgumentException("No existe la copia con ese ISBN"));
 
             copy.markAsAvailable();
