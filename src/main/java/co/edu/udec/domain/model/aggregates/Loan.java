@@ -13,7 +13,7 @@ public class Loan {
     private final Long id;
     private final Long userId;
     private final Isbn isbn;
-    private final LoanPeriod period;
+    private LoanPeriod period;
     private final LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private boolean returned;

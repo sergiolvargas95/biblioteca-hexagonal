@@ -10,4 +10,5 @@ public interface LoanRepository {
     Optional<Loan> findById(Long id);
     List<Loan> findAll();
     void deleteById(Long id);
+    void update(Loan loan);
 }

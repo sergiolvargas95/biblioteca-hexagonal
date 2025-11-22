@@ -10,8 +10,8 @@ import java.time.LocalDateTime;
 @Setter
 public class User {
     private final Long id;
-    private final FullName fullName;
-    private final Email email;
+    private FullName fullName;
+    private Email email;
     private String password;
     private final LocalDateTime createdAt;
     private LocalDateTime updatedAt;
@@ -33,5 +33,21 @@ public class User {
 
     public static User createNew(Long id, FullName fullName, Email email, String password) {
         return new User(id, fullName, email, password, LocalDateTime.now(), null);
+    }
+
+    public void updateProfile(FullName newFullName, Email newEmail) {
+
+        if (newFullName == null)
+            throw new IllegalArgumentException("El nombre completo es obligatorio");
+
+        if (newEmail == null)
+            throw new IllegalArgumentException("El email es obligatorio");
+
+        this.fullName = newFullName;
+        this.email = newEmail;
+        this.updatedAt = LocalDateTime.now();
+    }
+
+    public void changePassword(String newPassword) {
     }
 }

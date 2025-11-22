@@ -147,4 +147,36 @@ public class UserRepositoryImpl implements UserRepository {
             throw new RuntimeException("Error al eliminar usuario: " + e.getMessage(), e);
         }
     }
+
+    @Override
+    public User update(User user) {
+        String sql = "UPDATE Users SET " +
+                "first_name = ?, middle_name = ?, last_name = ?, second_surname = ?, " +
+                "email = ?, password = ?, updated_at = ? " +
+                "WHERE id = ?";
+
+        try (Connection conn = DatabaseConfig.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, user.getFullName().getFirstName());
+            stmt.setString(2, user.getFullName().getMiddleName());
+            stmt.setString(3, user.getFullName().getLastName());
+            stmt.setString(4, user.getFullName().getSecondSurname());
+            stmt.setString(5, user.getEmail().value());
+            stmt.setString(6, user.getPassword());
+            stmt.setTimestamp(7, Timestamp.valueOf(user.getUpdatedAt()));
+            stmt.setLong(8, user.getId());
+
+            int rows = stmt.executeUpdate();
+
+            if (rows == 0) {
+                throw new RuntimeException("No existe el usuario con ID: " + user.getId());
+            }
+
+            return user;
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Error al actualizar el usuario: " + e.getMessage(), e);
+        }
+    }
 }

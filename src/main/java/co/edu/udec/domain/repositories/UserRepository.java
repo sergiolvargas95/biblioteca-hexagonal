@@ -13,4 +13,6 @@ public interface UserRepository {
     Optional<User> findByEmail(Email email);
     List<User> findAll();
     void deleteById(Long id);
+
+    User update(User existing);
 }

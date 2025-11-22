@@ -47,7 +47,7 @@ public class CopyRepositoryImpl implements CopyRepository {
     }
 
     @Override
-    public Optional<Copy> findById(Long id) {
+    public Optional<Copy> findByIsbn(Long id) {
         String sql = "SELECT * FROM Copies WHERE id = ?";
         try (Connection conn = DatabaseConfig.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -109,6 +109,28 @@ public class CopyRepositoryImpl implements CopyRepository {
 
         } catch (SQLException e) {
             throw new RuntimeException("Error al eliminar la copia: " + e.getMessage(), e);
+        }
+    }
+
+    @Override
+    public void update(Copy copy) {
+        String sql = "UPDATE Copies SET book_id = ?, available = ? WHERE id = ?";
+
+        try (Connection conn = DatabaseConfig.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setLong(1, copy.getBookId());
+            stmt.setBoolean(2, copy.isAvailable());
+            stmt.setString(3, copy.getIsbn().getValue());
+
+            int rows = stmt.executeUpdate();
+
+            if (rows == 0) {
+                throw new RuntimeException("No se encontró la copia con ID: " + copy.getIsbn());
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Error al actualizar la copia: " + e.getMessage(), e);
         }
     }
 }

@@ -108,6 +108,48 @@ public class LoanRepositoryImpl implements LoanRepository {
         }
     }
 
+    @Override
+    public void update(Loan loan) {
+        String sql = """
+        UPDATE Loans
+        SET user_id = ?, 
+            isbn = ?, 
+            loan_date = ?, 
+            return_date = ?, 
+            returned = ?, 
+            updated_at = ?
+        WHERE id = ?
+        """;
+
+        try (Connection conn = DatabaseConfig.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setLong(1, loan.getUserId());
+            stmt.setString(2, loan.getIsbn().value());
+            stmt.setTimestamp(3, Timestamp.valueOf(loan.getPeriod().loanDate()));
+
+            // return_date puede ser null
+            if (loan.getPeriod().returnDate() != null) {
+                stmt.setTimestamp(4, Timestamp.valueOf(loan.getPeriod().returnDate()));
+            } else {
+                stmt.setNull(4, Types.TIMESTAMP);
+            }
+
+            stmt.setBoolean(5, loan.isReturned());
+            stmt.setTimestamp(6, Timestamp.valueOf(LocalDateTime.now()));
+            stmt.setLong(7, loan.getId());
+
+            int rows = stmt.executeUpdate();
+
+            if (rows == 0) {
+                throw new RuntimeException("No se encontró el préstamo con id " + loan.getId());
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Error al actualizar el préstamo: " + e.getMessage(), e);
+        }
+    }
+
     private Loan mapToLoan(ResultSet rs) throws SQLException {
         Long userId = rs.getLong("user_id");
 

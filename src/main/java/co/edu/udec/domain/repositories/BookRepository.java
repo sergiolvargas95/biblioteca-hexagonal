@@ -1,7 +1,6 @@
-package co.edu.udec.domain.repositories;
+package domain.repositories;
 
-import co.edu.udec.domain.model.aggregates.Book;
-
+import domain.model.aggregates.Book;
 import java.util.List;
 import java.util.Optional;
 
@@ -10,4 +9,6 @@ public interface BookRepository {
     Optional<Book> findById(Long id);
     List<Book> findAll();
     void deleteById(Long id);
+    Book update(Book updatedBook);
+    Optional<Book> findByTitle(String title);
 }
