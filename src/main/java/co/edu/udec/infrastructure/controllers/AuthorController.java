@@ -1,8 +1,8 @@
-package co.edu.udec.infrastructure.controllers;
+package infraestructure.controllers;
 
-import co.edu.udec.application.services.AuthorApplicationService;
-import co.edu.udec.domain.model.aggregates.Author;
-
+import application.services.AuthorApplicationService;
+import domain.model.aggregates.Author;
+import domain.model.valueObjects.FullName;
 import java.util.List;
 
 public class AuthorController {
@@ -12,19 +12,25 @@ public class AuthorController {
         this.authorService = authorService;
     }
 
-    public Author createAuthor(String firstName,
+    public String createAuthor(String firstName,
                                String middleName,
                                String lastName,
                                String secondSurname,
                                String nationality) {
+        try {
+            FullName fullName = new FullName(firstName, middleName, lastName, secondSurname);
 
-        return authorService.createAuthor(
-                firstName,
-                middleName,
-                lastName,
-                secondSurname,
-                nationality
-        );
+            var author =  authorService.createAuthor(
+                    firstName,
+                    middleName,
+                    lastName,
+                    secondSurname,
+                    nationality
+            );
+            return "Autor creado con ID: " + author.getId();
+        } catch (Exception e) {
+            return "Error creando author: " + e.getMessage();
+        }
     }
 
     public Author getAuthorById(Long id) {
@@ -54,21 +60,16 @@ public class AuthorController {
         authorService.deleteAuthor(id);
     }
 
-    public Object[][] listAuthors() {
-        List<Author> authors = authorService.listAuthors();
-        Object[][] data = new Object[authors.size()][3];
+    public Author findByFullName(String firstName,
+                                 String middleName,
+                                 String lastName,
+                                 String secondSurname) {
 
-        for (int i = 0; i < authors.size(); i++) {
-            Author a = authors.get(i);
-            data[i][0] = a.getId();
-            data[i][1] = a.getFullName().getFirstName() + " " +
-                    a.getFullName().getMiddleName() + " " +
-                    a.getFullName().getLastName() + " " +
-                    a.getFullName().getSecondSurname();
-            data[i][2] = a.getNationality();
-        }
+        return authorService.findByFullName(firstName, middleName, lastName, secondSurname);
+    }
 
-        return data;
+    public List<Author> getAllAuthors() {
+        return authorService.listAuthors();
     }
 
 }
