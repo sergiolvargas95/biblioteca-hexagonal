@@ -3,9 +3,6 @@ package co.edu.udec.domain.model.valueObjects;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Objects;
-import java.util.stream.Stream;
-
 @Getter
 @Setter
 public class FullName {

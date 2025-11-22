@@ -1,22 +1,11 @@
 package co.edu.udec;
 
 import co.edu.udec.application.services.*;
-import co.edu.udec.domain.model.aggregates.Author;
-import co.edu.udec.domain.model.aggregates.Book;
-import co.edu.udec.domain.model.aggregates.User;
-import co.edu.udec.domain.model.valueObjects.Email;
-import co.edu.udec.domain.model.valueObjects.FullName;
-import co.edu.udec.domain.model.valueObjects.Title;
-import co.edu.udec.domain.repositories.AuthorRepository;
-import co.edu.udec.domain.repositories.BookRepository;
-import co.edu.udec.domain.repositories.UserRepository;
-
-import co.edu.udec.infrastructure.config.DatabaseConfig;
 import co.edu.udec.infrastructure.controllers.*;
 import co.edu.udec.infrastructure.persistence.*;
+import co.edu.udec.presentation.PrincipalView;
 
-import java.time.LocalDateTime;
-import java.util.Optional;
+import javax.swing.*;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
@@ -43,6 +32,18 @@ public class Main {
         BookController bookController = new BookController(bookService);
         CopyController copyController = new CopyController(copyService);
         LoanController loanController = new LoanController(loanService);
-        
+
+        JFrame frame = new JFrame("Biblioteca Digital");
+        frame.setContentPane(new PrincipalView().MenuBar);
+
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        frame.setLocationRelativeTo(null);
+        frame.setSize(800, 600);
+        frame.setExtendedState(JFrame.NORMAL);
+
+        frame.setVisible(true);
+
+
     }
 }
